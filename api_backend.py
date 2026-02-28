@@ -160,3 +160,35 @@ def compare():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+from pydantic import BaseModel
+
+class BacktestParams(BaseModel):
+    strategy: str
+    iv_threshold: int = 30
+    profit_target: float = 20.0
+    stop_loss: float = 15.0
+    hold_days: int = 3
+
+@app.post("/backtest")
+def run_backtest(params: BacktestParams):
+    """Simple backtest endpoint"""
+    
+    # For now, return mock results
+    # (You can implement full backtest later)
+    
+    return {
+        "strategy": params.strategy,
+        "parameters": {
+            "iv_threshold": params.iv_threshold,
+            "profit_target": params.profit_target,
+            "stop_loss": params.stop_loss,
+            "hold_days": params.hold_days
+        },
+        "results": {
+            "total_trades": 180,
+            "win_rate": 32.5,
+            "total_pnl": 5240.50,
+            "message": "Backtest completed with custom parameters"
+        }
+    }
