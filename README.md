@@ -126,7 +126,8 @@ nifty-options-strategies/
 
 ## Author
 
-Rishit Modi
+Tanvi Patange
+Rishit Modh
 - GitHub: [@rishitmodh12](https://github.com/rishitmodh12)
 
 ## License
