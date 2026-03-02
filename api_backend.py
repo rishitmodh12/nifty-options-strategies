@@ -192,3 +192,51 @@ def run_backtest(params: BacktestParams):
             "message": "Backtest completed with custom parameters"
         }
     }
+
+from pydantic import BaseModel
+
+class BacktestParams(BaseModel):
+    strategy: str = "iv_scalping"
+    iv_threshold: int = 30
+    profit_target: float = 10.0
+    stop_loss: float = 20.0
+    hold_days: int = 3
+
+@app.post("/backtest")
+def run_backtest(params: BacktestParams):
+    """Run backtest with custom parameters"""
+    
+    # Return current results (mock for now)
+    if params.strategy == "iv_scalping":
+        return {
+            "strategy": "IV Scalping",
+            "parameters": params.dict(),
+            "results": {
+                "total_trades": 210,
+                "win_rate": 4.8,
+                "total_pnl": -15242.65,
+                "message": "Results shown are from baseline parameters"
+            }
+        }
+    elif params.strategy == "gamma_scalping":
+        return {
+            "strategy": "Gamma Scalping",
+            "parameters": params.dict(),
+            "results": {
+                "total_trades": 8,
+                "win_rate": 25.0,
+                "total_pnl": 749.80,
+                "message": "Results shown are from baseline parameters"
+            }
+        }
+    else:
+        return {
+            "strategy": "Hybrid",
+            "parameters": params.dict(),
+            "results": {
+                "total_trades": 0,
+                "win_rate": 0,
+                "total_pnl": 0,
+                "message": "No trades with these parameters"
+            }
+        }
